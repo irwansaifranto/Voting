@@ -1,0 +1,9 @@
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\bin\Debug\netcoreapp3.1\Service.Repository.deps.json
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\bin\Debug\netcoreapp3.1\Service.Repository.dll
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\bin\Debug\netcoreapp3.1\Service.Repository.pdb
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.csprojAssemblyReference.cache
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.AssemblyInfoInputs.cache
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.AssemblyInfo.cs
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.csproj.CoreCompileInputs.cache
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.dll
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.pdb

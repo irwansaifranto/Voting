@@ -1,0 +1,12 @@
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\bin\Debug\netcoreapp3.1\Service.Models.deps.json
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\bin\Debug\netcoreapp3.1\Service.Models.dll
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\obj\Debug\netcoreapp3.1\Service.Models.csprojAssemblyReference.cache
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\obj\Debug\netcoreapp3.1\Service.Models.AssemblyInfoInputs.cache
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\obj\Debug\netcoreapp3.1\Service.Models.AssemblyInfo.cs
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\bin\Debug\netcoreapp3.1\Service.Models.runtimeconfig.json
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\bin\Debug\netcoreapp3.1\Service.Models.runtimeconfig.dev.json
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\bin\Debug\netcoreapp3.1\Service.Models.pdb
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\obj\Debug\netcoreapp3.1\Service.Models.csproj.CoreCompileInputs.cache
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\obj\Debug\netcoreapp3.1\Service.Models.dll
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\obj\Debug\netcoreapp3.1\Service.Models.pdb
+D:\IRWAN\XTREMAX\Voting\Service\Service.Models\obj\Debug\netcoreapp3.1\Service.Models.genruntimeconfig.cache
