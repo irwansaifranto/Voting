@@ -7,3 +7,6 @@ D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Servi
 D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.csproj.CoreCompileInputs.cache
 D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.dll
 D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.pdb
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\bin\Debug\netcoreapp3.1\Service.Models.dll
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\bin\Debug\netcoreapp3.1\Service.Models.pdb
+D:\IRWAN\XTREMAX\Voting\Service\Service.Repository\obj\Debug\netcoreapp3.1\Service.Repository.csproj.CopyComplete

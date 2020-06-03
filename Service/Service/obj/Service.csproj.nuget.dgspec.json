@@ -4,14 +4,14 @@
     "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\Service.csproj": {}
   },
   "projects": {
-    "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\Service.csproj": {
+    "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Models\\Service.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\Service.csproj",
-        "projectName": "Service",
-        "projectPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\Service.csproj",
+        "projectUniqueName": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Models\\Service.Models.csproj",
+        "projectName": "Service.Models",
+        "projectPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Models\\Service.Models.csproj",
         "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\obj\\",
+        "outputPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -40,6 +40,149 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Repository\\Service.Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Repository\\Service.Repository.csproj",
+        "projectName": "Service.Repository",
+        "projectPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Repository\\Service.Repository.csproj",
+        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+        "outputPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Repository\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Models\\Service.Models.csproj": {
+                "projectPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Models\\Service.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\Service.csproj",
+        "projectName": "Service",
+        "projectPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\Service.csproj",
+        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+        "outputPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Models\\Service.Models.csproj": {
+                "projectPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Models\\Service.Models.csproj"
+              },
+              "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Repository\\Service.Repository.csproj": {
+                "projectPath": "D:\\IRWAN\\XTREMAX\\Voting\\Service\\Service.Repository\\Service.Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.4.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

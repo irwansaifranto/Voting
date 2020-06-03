@@ -1,2 +1,7 @@
 Service/.vs
+Service/Service/bin
 Service/Service/obj
+Service/Service.models/bin
+Service/Service.models/obj
+Service/Service.Repository/bin
+Service/Service.Repository/obj
