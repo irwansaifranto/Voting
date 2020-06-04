@@ -111,6 +111,12 @@ namespace VotingUI.Controllers
             return View(model);
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction(nameof(Login));
+        }
+
         private void SetSession(int userId, int roleId, string userName)
         {
             UserId = userId.ToString();

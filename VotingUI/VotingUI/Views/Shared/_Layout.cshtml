@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    var controller = ViewContext.RouteData.Values["Controller"];
+    var action = ViewContext.RouteData.Values["Action"];
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,6 +32,8 @@
                         </li>
                     </ul>
                 </div>
+                <a class="nav-link text-dark">Hello. @Context.Session.GetString("_UserName") (@Context.Session.GetString("_UserLevel")).</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout <i class="fas fa-sign-out-alt"></i></a>
             </div>
         </nav>
     </header>
