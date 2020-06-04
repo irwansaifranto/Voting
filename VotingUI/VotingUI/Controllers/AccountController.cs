@@ -4,12 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Configuration;
 using VotingUI.Models.Account;
+using VotingUI.Services;
 
 namespace VotingUI.Controllers
 {
     public class AccountController : Controller
     {
+        readonly IConfiguration _configuration;
+        readonly VotingService _votingService;
+
+        public AccountController(IConfiguration configuration, VotingService votingService)
+        {
+            _configuration = configuration;
+            _votingService = votingService;
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -25,7 +36,6 @@ namespace VotingUI.Controllers
                 {
                     modelState.Value.ValidationState = ModelValidationState.Valid;
                 }
-
             }
 
             if (ModelState.IsValid)
