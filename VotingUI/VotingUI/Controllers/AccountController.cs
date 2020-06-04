@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using VotingUI.Helper;
 using VotingUI.Models.Account;
 using VotingUI.Services;
 
 namespace VotingUI.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         readonly IConfiguration _configuration;
         readonly VotingService _votingService;
@@ -30,22 +31,30 @@ namespace VotingUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(ModelUserView model)
+        public async Task<IActionResult> Login(ModelLoginView model)
         {
-            foreach (var modelState in ViewData.ModelState)
-            {
-                if (modelState.Key == "RoleId" || modelState.Key == "ConfirmPassword" || modelState.Key == "Name")
-                {
-                    modelState.Value.ValidationState = ModelValidationState.Valid;
-                }
-
-            }
-
             if (ModelState.IsValid)
             {
-                // Logic login here
+                var response = await _votingService.GetAsync(_configuration.GetValue<string>("VotingEndPoint:GetUserByUsernameOrEmail") + "/?key=" + model.UserName);
 
-                return RedirectToAction("Index", "Home");
+                if (response.Data == null)
+                {
+                    ModelState.AddModelError("UserName", "Username or email not registered.");
+                }
+                else
+                {
+                    ModelLoginView userModel = response.Data != null ? JsonConvert.DeserializeObject<ModelLoginView>(Convert.ToString(response.Data)) : null;
+
+                    if (EncryptionHelper.Decrypt(userModel.Password) != model.Password)
+                    {
+                        ModelState.AddModelError("Password", "Username and Password not match.");
+                    }
+                    else
+                    {
+                        SetSession(userModel.UserId, userModel.RoleId, userModel.UserName);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
             }
 
             return View(model);
@@ -100,6 +109,23 @@ namespace VotingUI.Controllers
             }
 
             return View(model);
+        }
+
+        private void SetSession(int userId, int roleId, string userName)
+        {
+            UserId = userId.ToString();
+            UserName = userName;
+            switch (roleId)
+            {
+                case 1:
+                    UserLevel = "Admin";
+                    break;
+                case 2:
+                    UserLevel = "Voter";
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

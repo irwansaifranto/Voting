@@ -9,6 +9,8 @@ namespace VotingUI.Models.Account
 {
     public class ModelUserView
     {
+        public int UserId { get; set; }
+
         [Required(ErrorMessage = "First Name is required")]
         [StringLength(100)]
         public string FirstName { get; set; }

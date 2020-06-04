@@ -28,7 +28,13 @@ namespace Service.Repository.Concrete
             {
                 var result = await (from user in _context.MasterUser
                                     where user.Email == key || user.UserName == key
-                                    select user).FirstOrDefaultAsync();
+                                    select new
+                                    {
+                                        user.UserId,
+                                        user.UserName,
+                                        user.Password,
+                                        user.RoleId
+                                    }).FirstOrDefaultAsync();
 
                 response.Status = HttpStatusCode.OK.ToString();
                 response.Code = (int)HttpStatusCode.OK;
