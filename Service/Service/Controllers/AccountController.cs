@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Models.Models;
+using Service.Models.Models.View;
 using Service.Repository.Abstract;
 
 namespace Service.Controllers
@@ -23,6 +24,12 @@ namespace Service.Controllers
         public async Task<BaseResponse> GetUserByUsernameOrEmail(string key)
         {
             return await _userRepository.GetUserByUsernameOrEmail(key);
+        }
+
+        [HttpPost("InsertUser")]
+        public async Task<BaseResponse> InsertUser([FromBody] ModelUserView model)
+        {
+            return await _userRepository.InsertUser(model);
         }
     }
 }
