@@ -122,11 +122,39 @@
                 columnDefs: [
                     {
                         orderable: false,
-                        targets: [6]
+                        targets: [8,9]
+                    },
+                    {
+                        searchable: false,
+                        targets: [2,3,4,5,6,8,9]
                     }
-                    //{ width: "40%, "targets": 0 },
-                ]
+                ],
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        if (column[0][0] == 7) {
+                            var select = $('<select class="form-control" id="category-filter" style="width: 50%"><option value="">Select</option></select>')
+                                .appendTo($('#grid-list-voting_filter').parent().siblings())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
+
+                            column.data().unique().sort().each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>')
+                            });
+                        }
+                        
+                    });
+                }
             });
+
+            //$('#grid-list-voting_filter').parent().siblings().html('<select class="form-control" id="category-filter" style="width: 50%"><option>Select</option></select>');
         };
 
         var reloadDataSource = function () {
