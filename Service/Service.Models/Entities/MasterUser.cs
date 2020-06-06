@@ -5,6 +5,11 @@ namespace Service.Models.Entities
 {
     public partial class MasterUser
     {
+        public MasterUser()
+        {
+            MappingVotingUsers = new HashSet<MappingVotingUsers>();
+        }
+
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -21,5 +26,6 @@ namespace Service.Models.Entities
         public bool IsDelete { get; set; }
 
         public virtual MasterRole Role { get; set; }
+        public virtual ICollection<MappingVotingUsers> MappingVotingUsers { get; set; }
     }
 }
