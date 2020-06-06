@@ -19,6 +19,7 @@ namespace Service.Configuration
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IVotingRepository, VotingRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
         }
     }
 }

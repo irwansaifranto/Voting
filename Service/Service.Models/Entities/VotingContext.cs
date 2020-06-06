@@ -40,13 +40,11 @@ namespace Service.Models.Entities
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.MappingVotingUsers)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MappingVotingUsers_MasterUser");
 
                 entity.HasOne(d => d.VotingProcess)
                     .WithMany(p => p.MappingVotingUsers)
                     .HasForeignKey(d => d.VotingProcessId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MappingVotingUsers_MasterVotingProcess");
             });
 

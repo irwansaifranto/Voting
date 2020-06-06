@@ -1,0 +1,68 @@
+﻿@model VotingUI.Models.Voting.ModelVotingView
+
+@{
+    ViewData["Title"] = "Manage Vote";
+    var num = DateTime.Now.Ticks;
+}
+
+<h4 class="ml-3 mb-4"><i class="fa fa-cog"></i> Manage Vote</h4>
+<div class="form-group row">
+    <div class="col-12 col-sm-12 col-md-12 col-xl-12 pl-4 pr-4">
+        <button type="button" class="btn btn-success ml-3" id="btn-add-vote"><i class="fa fa-plus-circle pr-2"></i> Create</button>
+        <div class="table-sm table-responsive">
+            <table id="grid-list-voting" class="table table-bordered table-striped table-hover" width="100%"></table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Voting modal content -->
+<div class="modal fade" tabindex="-1" role="dialog" id="addVotingModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input asp-for="@Model.VotingProcessId" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="@Model.VotingProcessName" class="control-label" id="lblVotProcname">Name <span class="text-danger">*</span></label>
+                    <input asp-for="@Model.VotingProcessName" class="form-control" />
+                    <span asp-validation-for="@Model.VotingProcessName" class="text-danger" id="errMsgVotProcName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Description" class="control-label" id="lblDesc">Description <span class="text-danger">*</span></label>
+                    <input asp-for="@Model.Description" class="form-control" />
+                    <span asp-validation-for="@Model.Description" class="text-danger" id="errMsgDesc"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.CreatedDate" class="control-label" id="lblCreatedDate">Open Voting <span class="text-danger">*</span></label>
+                    <input asp-for="@Model.CreatedDate" class="form-control datepicker" type="date" />
+                    <span asp-validation-for="@Model.CreatedDate" class="text-danger" id="errMsgCreatedDate"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.DueDate" class="control-label" id="lblDueDate">Closed Voting <span class="text-danger">*</span></label>
+                    <input asp-for="@Model.DueDate" class="form-control datepicker" type="date"/>
+                    <span asp-validation-for="@Model.DueDate" class="text-danger" id="errMsgDueDate"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.VotingCategoryId" class="control-label" id="lblCategory">Categories <span class="text-danger">*</span></label>
+                    <select class="form-control" asp-for="@Model.VotingCategoryId" asp-items="@Model.CategoryOptions"></select>
+                    <span asp-validation-for="@Model.VotingCategoryId" class="text-danger" id="errMsgCategory"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSubmitChanges">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/manage-vote.js?@num" type="text/javascript"></script>
+}
+
+
