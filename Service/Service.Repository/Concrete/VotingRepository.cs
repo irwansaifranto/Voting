@@ -9,6 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using Service.Models.Models.View;
+using System.Security.Cryptography;
 
 namespace Service.Repository.Concrete
 {
@@ -39,7 +40,7 @@ namespace Service.Repository.Concrete
                                         voting.DueDate,
                                         StringDueDate = voting.DueDate.ToString("dd/MM/yyyy"),
                                         voting.VotingCategory.VotingCategoryName,
-                                        voting.VotingCategoryId
+                                        voting.VotingCategoryId                                      
                                     }).ToListAsync();
 
                 response.Status = HttpStatusCode.OK.ToString();
@@ -82,6 +83,7 @@ namespace Service.Repository.Concrete
                         CreatedDate = model.CreatedDate,
                         DueDate = model.DueDate,
                         VotingCategoryId = model.VotingCategoryId,
+                        SupportersCount = 0,
                         CreatedBy = "Admin",
                         ModifiedDate = DateTime.Now,
                         ModifiedBy = "Admin",
@@ -166,6 +168,78 @@ namespace Service.Repository.Concrete
                     response.Code = (int)HttpStatusCode.OK;
                     response.Status = HttpStatusCode.OK.ToString();
                     response.Message = "Delete Voting Success.";
+                }
+                catch (Exception ex)
+                {
+                    response.Message = ex.ToString();
+                    response.Code = (int)HttpStatusCode.InternalServerError;
+                    response.Status = HttpStatusCode.InternalServerError.ToString();
+
+                    dbcxtransaction.Rollback();
+                }
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse> SubmitVote(SubmitVoteParameter param)
+        {
+            BaseResponse response = new BaseResponse();
+
+            using (var dbcxtransaction = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    var checkDuplicateVote = await _context.MappingVotingUsers.FirstOrDefaultAsync(n => n.UserId == param.UserId && n.VotingProcessId == param.VotingProcessId);
+
+                    if (checkDuplicateVote != null)
+                    {
+                        dbcxtransaction.Rollback();
+
+                        response.Code = 6001;
+                        response.Status = HttpStatusCode.BadRequest.ToString();
+                        response.Message = "You cant vote one item two times.";
+                    }
+                    else
+                    {
+                        // Save new voter
+                        MappingVotingUsers userVote = new MappingVotingUsers
+                        {
+                            UserId = param.UserId,
+                            VotingProcessId = param.VotingProcessId
+                        };
+
+                        await _context.MappingVotingUsers.AddAsync(userVote);
+                        await _context.SaveChangesAsync();
+
+                        // Update voting process
+                        var voting = await _context.MasterVotingProcess.FindAsync(param.VotingProcessId);
+
+                        voting.SupportersCount = voting.SupportersCount + param.VotingValue;
+                        voting.ModifiedDate = DateTime.Now;
+                        voting.ModifiedBy = "Admin";
+
+                        _context.Entry(voting).State = EntityState.Modified;
+
+                        await _context.SaveChangesAsync();
+
+                        dbcxtransaction.Commit();
+
+                        // Get new response after voting
+                        var responseData = await (from vote in _context.MasterVotingProcess
+                                                  where vote.VotingProcessId == param.VotingProcessId
+                                                  select new
+                                                  {
+                                                      vote.VotingProcessId,
+                                                      Reviewers = voting.MappingVotingUsers.Count(),
+                                                      StarValue = vote.SupportersCount.Value / vote.MappingVotingUsers.Count()
+                                                  }).FirstOrDefaultAsync();
+
+                        response.Data = responseData;
+                        response.Code = (int)HttpStatusCode.OK;
+                        response.Status = HttpStatusCode.OK.ToString();
+                        response.Message = "Thank you for your feedback.";
+                    }                   
                 }
                 catch (Exception ex)
                 {

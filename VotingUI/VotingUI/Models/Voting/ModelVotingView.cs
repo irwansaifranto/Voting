@@ -13,10 +13,14 @@ namespace VotingUI.Models.Voting
         public string VotingProcessName { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string StringCreatedDate { get; set; }
         public double? SupportersCount { get; set; }
+        public int Reviewers { get; set; }
         public DateTime DueDate { get; set; }
+        public string StringDueDate { get; set; }
         public string VotingCategoryName { get; set; }
         public int VotingCategoryId { get; set; }
+        public double? StarValue { get; set; }
         public List<SelectListItem> CategoryOptions { get; set; }
 
         public List<SelectListItem> ConstructBookOptions(List<ModelCategoryView> categories)

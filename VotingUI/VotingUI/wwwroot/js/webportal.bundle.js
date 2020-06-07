@@ -49,6 +49,7 @@ WEBPORTAL.URLContext.GetCategories = '/Category/GetCategories';
 WEBPORTAL.URLContext.InsertCategory = '/Category/InsertCategory';
 WEBPORTAL.URLContext.UpdateCategory = '/Category/UpdateCategory';
 WEBPORTAL.URLContext.DeleteCategory = '/Category/DeleteCategory';
+WEBPORTAL.URLContext.SubmitVote = '/Home/SubmitVote';
 
 WEBPORTAL.GlobalMessage = {
     SubmitError: "Submit Error. Please check your form"

@@ -12,5 +12,6 @@ namespace Service.Repository.Abstract
         Task<BaseResponse> InsertVoting(Models.Models.View.ModelVotingView model);
         Task<BaseResponse> UpdateVoting(Models.Models.View.ModelVotingView model);
         Task<BaseResponse> DeleteVoting(int votingProcessId);
+        Task<BaseResponse> SubmitVote(Models.Models.View.SubmitVoteParameter param);
     }
 }

@@ -43,5 +43,11 @@ namespace Service.Controllers
         {
             return await _votingRepository.DeleteVoting(votingProcessId);
         }
+
+        [HttpPost("SubmitVote")]
+        public async Task<BaseResponse> SubmitVote(SubmitVoteParameter param)
+        {
+            return await _votingRepository.SubmitVote(param);
+        }
     }
 }

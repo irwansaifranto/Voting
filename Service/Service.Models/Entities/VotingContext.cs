@@ -37,6 +37,12 @@ namespace Service.Models.Entities
                 entity.HasKey(e => new { e.UserId, e.VotingProcessId })
                     .HasName("PK__MappingV__E0A4C4BA72B3B42B");
 
+                entity.Property(e => e.Comment)
+                    .HasMaxLength(256)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.MappingVotingUsers)
                     .HasForeignKey(d => d.UserId)

@@ -7,6 +7,8 @@ namespace Service.Models.Entities
     {
         public int UserId { get; set; }
         public int VotingProcessId { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string Comment { get; set; }
 
         public virtual MasterUser User { get; set; }
         public virtual MasterVotingProcess VotingProcess { get; set; }
