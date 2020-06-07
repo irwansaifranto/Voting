@@ -165,7 +165,7 @@ namespace Service.Repository.Concrete
 
                     response.Code = (int)HttpStatusCode.OK;
                     response.Status = HttpStatusCode.OK.ToString();
-                    response.Message = "Delete Bank Success.";
+                    response.Message = "Delete Voting Success.";
                 }
                 catch (Exception ex)
                 {
