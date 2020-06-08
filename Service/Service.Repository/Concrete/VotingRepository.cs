@@ -215,30 +215,40 @@ namespace Service.Repository.Concrete
                         // Update voting process
                         var voting = await _context.MasterVotingProcess.FindAsync(param.VotingProcessId);
 
-                        voting.SupportersCount = voting.SupportersCount + param.VotingValue;
-                        voting.ModifiedDate = DateTime.Now;
-                        voting.ModifiedBy = "Admin";
+                        if (param.VotingDate.Date > voting.DueDate)
+                        {
+                            dbcxtransaction.Rollback();
 
-                        _context.Entry(voting).State = EntityState.Modified;
+                            response.Code = 6000;
+                            response.Status = HttpStatusCode.BadRequest.ToString();
+                            response.Message = "You can't vote expired item.";
+                        } else
+                        {
+                            voting.SupportersCount = voting.SupportersCount + param.VotingValue;
+                            voting.ModifiedDate = DateTime.Now;
+                            voting.ModifiedBy = "Admin";
 
-                        await _context.SaveChangesAsync();
+                            _context.Entry(voting).State = EntityState.Modified;
 
-                        dbcxtransaction.Commit();
+                            await _context.SaveChangesAsync();
 
-                        // Get new response after voting
-                        var responseData = await (from vote in _context.MasterVotingProcess
-                                                  where vote.VotingProcessId == param.VotingProcessId
-                                                  select new
-                                                  {
-                                                      vote.VotingProcessId,
-                                                      Reviewers = voting.MappingVotingUsers.Count(),
-                                                      StarValue = vote.SupportersCount.Value / vote.MappingVotingUsers.Count()
-                                                  }).FirstOrDefaultAsync();
+                            dbcxtransaction.Commit();
 
-                        response.Data = responseData;
-                        response.Code = (int)HttpStatusCode.OK;
-                        response.Status = HttpStatusCode.OK.ToString();
-                        response.Message = "Thank you for your feedback.";
+                            // Get new response after voting
+                            var responseData = await (from vote in _context.MasterVotingProcess
+                                                      where vote.VotingProcessId == param.VotingProcessId
+                                                      select new
+                                                      {
+                                                          vote.VotingProcessId,
+                                                          Reviewers = voting.MappingVotingUsers.Count(),
+                                                          StarValue = vote.SupportersCount.Value / vote.MappingVotingUsers.Count()
+                                                      }).FirstOrDefaultAsync();
+
+                            response.Data = responseData;
+                            response.Code = (int)HttpStatusCode.OK;
+                            response.Status = HttpStatusCode.OK.ToString();
+                            response.Message = "Thank you for your feedback.";
+                        }                     
                     }                   
                 }
                 catch (Exception ex)

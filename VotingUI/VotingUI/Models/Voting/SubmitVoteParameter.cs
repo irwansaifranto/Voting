@@ -10,5 +10,6 @@ namespace VotingUI.Models.Voting
         public int UserId { get; set; }
         public int VotingProcessId { get; set; }
         public double? VotingValue { get; set; }
+        public DateTime VotingDate { get; set; }
     }
 }

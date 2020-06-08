@@ -44,7 +44,8 @@ namespace VotingUI.Controllers
         public async Task<string> SubmitVote(SubmitVoteParameter model)
         {
             model.UserId = Int32.Parse(UserId);
-
+            model.VotingDate = DateTime.Now.Date;
+            
             var response = await _votingService.PostAsync(_configuration.GetValue<string>("VotingEndPoint:SubmitVote"), model);
             return JsonConvert.SerializeObject(response);
         }

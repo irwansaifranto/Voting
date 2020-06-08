@@ -32,7 +32,15 @@
                         </div>
                         <div class="mt-2 mb-2">
                             <text>Open  : <span class="font-weight-bold">@voting.StringCreatedDate</span></text><br />
-                            <text>Close : <span class="font-weight-bold">@voting.StringDueDate</span></text>
+                            @if (DateTime.Now.Date > voting.DueDate.Date)
+                            {
+                                <text>Close : <span class="font-weight-bold text-danger">@voting.StringDueDate</span></text>
+                            }
+                            else
+                            {
+                                <text>Close : <span class="font-weight-bold">@voting.StringDueDate</span></text>
+                            }
+
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-3 mt-3">
@@ -166,7 +174,10 @@
                         countTotalReviewers(item, resultObject.Data.reviewers);
                         countRate(item, resultObject.Data.starValue);
                         WEBPORTAL.Utility.ConstructNotificationSuccess(resultObject.Message);
-                    } else if (resultObject.Code === 6001) {
+                    } else if (resultObject.Code === 6000) {
+                        WEBPORTAL.Utility.ConstructNotificationError(resultObject.Message);
+                    }
+                    else if (resultObject.Code === 6001) {
                         WEBPORTAL.Utility.ConstructNotificationError(resultObject.Message);
                     }
                     else {
