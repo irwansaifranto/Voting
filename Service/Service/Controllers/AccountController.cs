@@ -20,6 +20,12 @@ namespace Service.Controllers
             _userRepository = userRepository;
         }
 
+        [HttpGet("GetUserById")]
+        public async Task<BaseResponse> GetUserById(int id)
+        {
+            return await _userRepository.GetUserById(id);
+        }
+
         [HttpGet("GetUserByUsernameOrEmail")]
         public async Task<BaseResponse> GetUserByUsernameOrEmail(string key)
         {

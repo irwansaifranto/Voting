@@ -105,6 +105,10 @@
                                 </div>
                             </div>
                             <!-- end 1 -->
+                            <div class="col-xs-3 col-md-3 offset-1 text-right">
+                                <a href="@Url.Action("Index", "Voting")" id="voting-detail-@voting.VotingProcessId">Detail</a>
+                            </div>
+                            
                         </div>
                         <!-- end row -->
                     </div>
@@ -194,7 +198,7 @@
         }
 
         function disableButton(item) {
-            $("#btn-submit-vote-" + item).prop('disabled', true); 
+            $("#btn-submit-vote-" + item).prop('disabled', true);
         }
 
         function countTotalReviewers(item, reviewers) {
@@ -205,7 +209,17 @@
             $("#rating-num-" + item).html(starValue + " / 5.0");
         }
 
-        function countStar() {
-        }
+        //function detailVoting(data) {
+        //    var jsonData = $(data).attr('data-voting');
+
+        //    swal({
+        //        title: "Good job!",
+        //        text: "You clicked the button!",
+        //        icon: "success",
+        //        button: "Aww yiss!",
+        //        content: "fasdfads"
+        //    });
+        //}
+
     </script>
 }

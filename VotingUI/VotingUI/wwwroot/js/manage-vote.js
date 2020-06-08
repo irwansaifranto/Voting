@@ -50,7 +50,7 @@
                     { data: "stringDueDate", title: "Closed Voting" },
                     { data: "votingCategoryId", title: "", visible: false },
                     { data: "votingCategoryName", title: "Category" },
-                    { data: null, title: "Ratings" },
+                    //{ data: null, title: "Ratings" },
                     {
                         data: null,
                         title: "",
@@ -62,59 +62,65 @@
                                 + '</div>');
 
                             $(td).find('.bp_tbl_btn_edit').click(function () {
-                                modalVoteForm.find('.modal-dialog .modal-content .modal-title').text('Update Vote');
-                                btnSubmitChanges.text("Update");
+                                if ($('#role') == 'Admin') {
+                                    modalVoteForm.find('.modal-dialog .modal-content .modal-title').text('Update Vote');
+                                    btnSubmitChanges.text("Update");
 
-                                // set value
-                                urlContext = WEBPORTAL.URLContext.UpdateVoting;
+                                    // set value
+                                    urlContext = WEBPORTAL.URLContext.UpdateVoting;
 
-                                votProcId.val(rowData.votingProcessId);
-                                votProcName.val(rowData.votingProcessName);
-                                description.val(rowData.description);
-                                createdDate.val(WEBPORTAL.Utility.ConvertDateStringToJavascript(rowData.stringCreatedDate));
-                                dueDate.val(WEBPORTAL.Utility.ConvertDateStringToJavascript(rowData.stringDueDate));
-                                votingCategoryId.val(rowData.votingCategoryId);
+                                    votProcId.val(rowData.votingProcessId);
+                                    votProcName.val(rowData.votingProcessName);
+                                    description.val(rowData.description);
+                                    createdDate.val(WEBPORTAL.Utility.ConvertDateStringToJavascript(rowData.stringCreatedDate));
+                                    dueDate.val(WEBPORTAL.Utility.ConvertDateStringToJavascript(rowData.stringDueDate));
+                                    votingCategoryId.val(rowData.votingCategoryId);
 
-                                modalVoteForm.modal('show');
-
-                                console.log(WEBPORTAL.Utility.ConvertDateStringToJavascript(rowData.stringCreatedDate));
+                                    modalVoteForm.modal('show');
+                                } else {
+                                    WEBPORTAL.Utility.ConstructNotificationError("You haven't access to perform this action.");
+                                }
                             });
 
                             $(td).find('.bp_tbl_btn_delete').click(function () {
-                                const swalWithBootstrapButtons = Swal.mixin({
-                                    customClass: {
-                                        confirmButton: 'btn btn-danger',
-                                        cancelButton: 'btn btn-default'
-                                    },
-                                    buttonsStyling: false
-                                });
+                                if ($('#role') == 'Admin') {
+                                    const swalWithBootstrapButtons = Swal.mixin({
+                                        customClass: {
+                                            confirmButton: 'btn btn-danger',
+                                            cancelButton: 'btn btn-default'
+                                        },
+                                        buttonsStyling: false
+                                    });
 
-                                swalWithBootstrapButtons.fire({
-                                    title: 'Are you sure?',
-                                    text: "You won't be able to revert this!",
-                                    type: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonText: 'Yes, delete it!',
-                                    cancelButtonText: 'No, cancel!',
-                                    reverseButtons: true
-                                }).then((result) => {
-                                    if (result.value) {
-                                        $.when(WEBPORTAL.Services.POSTLocal(null, WEBPORTAL.URLContext.DeleteVoting + '?votingProcessId=' + rowData.votingProcessId)).done(function (result, status, xhr) {
-                                            reloadDataSource();
+                                    swalWithBootstrapButtons.fire({
+                                        title: 'Are you sure?',
+                                        text: "You won't be able to revert this!",
+                                        type: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Yes, delete it!',
+                                        cancelButtonText: 'No, cancel!',
+                                        reverseButtons: true
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            $.when(WEBPORTAL.Services.POSTLocal(null, WEBPORTAL.URLContext.DeleteVoting + '?votingProcessId=' + rowData.votingProcessId)).done(function (result, status, xhr) {
+                                                reloadDataSource();
+                                                swalWithBootstrapButtons.fire(
+                                                    'Deleted!',
+                                                    'Your file has been deleted.',
+                                                    'success'
+                                                )
+                                            });
+                                        } else if (result.dismiss === Swal.DismissReason.cancel) {
                                             swalWithBootstrapButtons.fire(
-                                                'Deleted!',
-                                                'Your file has been deleted.',
-                                                'success'
+                                                'Cancelled',
+                                                'Your imaginary data is safe :)',
+                                                'warning'
                                             )
-                                        });
-                                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                        swalWithBootstrapButtons.fire(
-                                            'Cancelled',
-                                            'Your imaginary data is safe :)',
-                                            'warning'
-                                        )
-                                    }
-                                });
+                                        }
+                                    });
+                                } else {
+                                    WEBPORTAL.Utility.ConstructNotificationError("You haven't access to perform this action.");
+                                }                                
                             });
                         }
                     }
@@ -122,11 +128,11 @@
                 columnDefs: [
                     {
                         orderable: false,
-                        targets: [8,9]
+                        targets: [8]
                     },
                     {
                         searchable: false,
-                        targets: [2,3,4,5,6,8,9]
+                        targets: [2,3,4,5,6,8]
                     }
                 ],
                 initComplete: function () {

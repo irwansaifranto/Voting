@@ -10,6 +10,7 @@ namespace Service.Repository.Abstract
 {
     public interface IUserRepository
     {
+        Task<BaseResponse> GetUserById(int id);
         Task<BaseResponse> GetUserByUsernameOrEmail(string key);
         Task<BaseResponse> InsertUser(ModelUserView model);
     }

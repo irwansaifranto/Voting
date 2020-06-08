@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http;
+
 @{
     var controller = ViewContext.RouteData.Values["Controller"];
     var action = ViewContext.RouteData.Values["Action"];
@@ -20,7 +21,7 @@
     <!-- Toastr -->
     <link href="~/lib/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="~/css/site.css" type="text/css"/>
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
 </head>
 <body>
     <header>
@@ -34,21 +35,32 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" id="menu-home">Home</a>
                         </li>
+                        @if (Context.Session.GetString("_UserLevel") == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Voting" asp-action="Index" id="menu-voting">Manage Voting</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index" id="menu-category">Manage Categories</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Voting" asp-action="Index">Manage Voting</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Manage Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy" id="menu-privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
-                <a class="nav-link text-dark">Hello. @Context.Session.GetString("_UserName") (@Context.Session.GetString("_UserLevel")).</a>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout <i class="fas fa-sign-out-alt"></i></a>
+                @if (Context.Session.GetString("_UserName") != null)
+                {
+                    <a class="nav-link text-dark">Hello. @Context.Session.GetString("_UserName") (@Context.Session.GetString("_UserLevel")).</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout <i class="fas fa-sign-out-alt"></i></a>
+                }
+                else
+                {
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                }
             </div>
         </nav>
     </header>
@@ -75,6 +87,21 @@
     <!-- Custom JS -->
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/webportal.bundle.js" type="text/javascript"></script>
+    <script>
+        (function () {
+            if (('@controller'.toLowerCase() == 'voting')) {
+                document.getElementById('menu-voting').classList.add('custom-highlight-menu');
+            } else if (('@controller'.toLowerCase() == 'category')) {
+                document.getElementById('menu-category').classList.add('custom-highlight-menu');
+            } else if (('@controller'.toLowerCase() == 'home')) {
+                if ('@action'.toLowerCase() == 'privacy') {
+                    document.getElementById('menu-privacy').classList.add('custom-highlight-menu');
+                } else if ('@action'.toLowerCase() == 'index'){
+                    document.getElementById('menu-home').classList.add('custom-highlight-menu');
+                }
+            }
+        })();
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

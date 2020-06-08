@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -34,19 +35,37 @@ namespace VotingUI.Controllers
             List<ModelVotingView> model = response.Data != null ? JsonConvert.DeserializeObject<List<ModelVotingView>>(Convert.ToString(response.Data)) : new List<ModelVotingView>();
 
             foreach (var single in model)
-                single.StarValue = single.Reviewers != 0 ? single.SupportersCount.Value / single.Reviewers : 0;
+                single.StarValue = single.Reviewers != 0 ? Math.Round(single.SupportersCount.Value / single.Reviewers, 1)  : 0;
 
             return View(model);
         }
 
-
         [HttpPost]
         public async Task<string> SubmitVote(SubmitVoteParameter model)
         {
-            model.UserId = Int32.Parse(UserId);
-            model.VotingDate = DateTime.Now.Date;
+            BaseResponse response = new BaseResponse();
+
+            try
+            {
+                model.UserId = Int32.Parse(UserId);
+                model.VotingDate = DateTime.Now.Date;
+
+                var data = UserId;
+                response = await _votingService.PostAsync(_configuration.GetValue<string>("VotingEndPoint:SubmitVote"), model);
+            }
+            catch (Exception ex)
+            {               
+                if (ex.Message.Contains("Input string was not in a correct format"))
+                {
+                    response.Code = 6002;
+                    response.Status = HttpStatusCode.BadRequest.ToString();
+                    response.Message = "Please login before you submit your vote.";
+                } else
+                {
+                    response.Message = ex.Message;
+                }
+            }
             
-            var response = await _votingService.PostAsync(_configuration.GetValue<string>("VotingEndPoint:SubmitVote"), model);
             return JsonConvert.SerializeObject(response);
         }
 

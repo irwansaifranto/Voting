@@ -20,6 +20,39 @@ namespace Service.Repository.Concrete
             _context = context;
         }
 
+        public async Task<BaseResponse> GetUserById(int id)
+        {
+            BaseResponse response = new BaseResponse();
+
+            try
+            {
+                var result = await _context.MasterUser.FirstOrDefaultAsync(n => n.UserId == id);
+
+                if (result != null)
+                {
+                    response.Code = (int)HttpStatusCode.OK;
+                    response.Status = HttpStatusCode.OK.ToString();
+                    response.Message = "Retrieve data success";
+                }
+                else
+                {
+                    response.Code = 6002;
+                    response.Status = HttpStatusCode.OK.ToString();
+                    response.Message = "No result";
+                }
+
+                response.Data = result;
+            }
+            catch (Exception ex)
+            {
+                response.Status = HttpStatusCode.InternalServerError.ToString();
+                response.Code = (int)HttpStatusCode.InternalServerError;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
         public async Task<BaseResponse> GetUserByUsernameOrEmail(string key)
         {
             BaseResponse response = new BaseResponse();
