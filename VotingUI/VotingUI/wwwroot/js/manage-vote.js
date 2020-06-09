@@ -62,7 +62,7 @@
                                 + '</div>');
 
                             $(td).find('.bp_tbl_btn_edit').click(function () {
-                                if ($('#role') == 'Admin') {
+                                if ($('#role').val() == 'Admin') {
                                     modalVoteForm.find('.modal-dialog .modal-content .modal-title').text('Update Vote');
                                     btnSubmitChanges.text("Update");
 
